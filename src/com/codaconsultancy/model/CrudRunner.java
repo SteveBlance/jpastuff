@@ -12,24 +12,31 @@ import java.util.List;
 public class CrudRunner {
 
     public static void main(String[] args) {
-        // CrudRunner.create();
-        CrudRunner.retrieve();
+//        CrudRunner.create();
+//        CrudRunner.retrieve();
+        CrudRunner.retrieveById(1L);
+    }
+
+    private static void retrieveById(Long id) {
+        Session session = getSession();
+        session.beginTransaction();
+
+        Query queryResult = session.createQuery("from User where id = :id");
+        queryResult.setLong("id", id);
+
+        User user = (User) queryResult.uniqueResult();
+
+        System.out.println(user.getPassword());
+        session.getTransaction().commit();
     }
 
     private static void retrieve() {
-        Configuration configuration = new Configuration();
-        configuration.addAnnotatedClass(User.class);
-        configuration.configure();
-        ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-                configuration.getProperties()).buildServiceRegistry();
-        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-        Session session = sessionFactory.getCurrentSession();
+        Session session = getSession();
         session.beginTransaction();
 
         Query queryResult = session.createQuery("from User");
 
         List<User> users = queryResult.list();
-
 
         for (User user : users) {
             System.out.println(user.getPassword());
@@ -39,13 +46,7 @@ public class CrudRunner {
     }
 
     private static void create() {
-        Configuration configuration = new Configuration();
-        configuration.addAnnotatedClass(User.class);
-        configuration.configure();
-        ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-                configuration.getProperties()).buildServiceRegistry();
-        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-        Session session = sessionFactory.getCurrentSession();
+        Session session = getSession();
         session.beginTransaction();
 
         User user = new User();
@@ -53,5 +54,15 @@ public class CrudRunner {
 
         session.save(user);
         session.getTransaction().commit();
+    }
+
+    private static Session getSession() {
+        Configuration configuration = new Configuration();
+        configuration.addAnnotatedClass(User.class);
+        configuration.configure();
+        ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
+                configuration.getProperties()).buildServiceRegistry();
+        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+        return sessionFactory.getCurrentSession();
     }
 }
