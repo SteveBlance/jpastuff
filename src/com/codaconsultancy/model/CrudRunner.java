@@ -14,7 +14,39 @@ public class CrudRunner {
     public static void main(String[] args) {
 //        CrudRunner.create();
 //        CrudRunner.retrieve();
-        CrudRunner.retrieveById(1L);
+//        CrudRunner.retrieveById(1L);
+//        CrudRunner.updateAll();
+        CrudRunner.deleteAll();
+
+    }
+
+    private static void deleteAll() {
+        Session session = getSession();
+        session.beginTransaction();
+
+        Query queryResult = session.createQuery("from User");
+
+        List<User> allUsers = queryResult.list();
+
+        for (User user : allUsers) {
+            session.delete(user);
+        }
+        session.getTransaction().commit();
+    }
+
+    private static void updateAll() {
+        Session session = getSession();
+        session.beginTransaction();
+
+        Query queryResult = session.createQuery("from User");
+
+        List<User> allUsers = queryResult.list();
+
+        for (User user : allUsers) {
+            user.setPassword("password");
+            session.update(user);
+        }
+        session.getTransaction().commit();
     }
 
     private static void retrieveById(Long id) {
