@@ -12,11 +12,11 @@ import java.util.List;
 public class CrudRunner {
 
     public static void main(String[] args) {
-//        CrudRunner.create();
+        CrudRunner.create();
 //        CrudRunner.retrieve();
 //        CrudRunner.retrieveById(1L);
 //        CrudRunner.updateAll();
-        CrudRunner.deleteAll();
+//        CrudRunner.deleteAll();
 
     }
 
@@ -82,7 +82,7 @@ public class CrudRunner {
         session.beginTransaction();
 
         User user = new User();
-        user.setPassword("abc144");
+        user.setPassword("abc160");
 
         session.save(user);
         session.getTransaction().commit();
