@@ -2,10 +2,6 @@ package com.codaconsultancy.model;
 
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 
 public class LoadRunner {
 
@@ -15,32 +11,21 @@ public class LoadRunner {
     }
 
     private static void callGet() {
-        Session session = getSession();
-        session.beginTransaction();
+        Session session = HibernateUtil.beginTransaction();
         User user = (User) session.get(User.class, 5L);
         System.out.println(user.getPassword());
-        session.getTransaction().commit();
+        HibernateUtil.commitTransaction();
     }
 
     private static void callLoad() {
-        Session session = getSession();
-        session.beginTransaction();
+        Session session = HibernateUtil.beginTransaction();
         try {
             User user = (User) session.load(User.class, 6L);
             System.out.println(user.getPassword());
         } catch (ObjectNotFoundException e) {
             e.printStackTrace();
         }
-        session.getTransaction().commit();
+        HibernateUtil.commitTransaction();
     }
 
-    private static Session getSession() {
-        Configuration configuration = new Configuration();
-        configuration.addAnnotatedClass(User.class);
-        configuration.configure();
-        ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(
-                configuration.getProperties()).buildServiceRegistry();
-        SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-        return sessionFactory.getCurrentSession();
-    }
 }
