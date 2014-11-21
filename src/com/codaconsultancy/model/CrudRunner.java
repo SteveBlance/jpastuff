@@ -3,6 +3,8 @@ package com.codaconsultancy.model;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class CrudRunner {
@@ -72,7 +74,13 @@ public class CrudRunner {
         Session session = HibernateUtil.beginTransaction();
 
         User user = new User();
-        user.setPassword("abc160");
+        user.setLoginName("dd");
+        user.setPassword("jdd333");
+        user.setEncryptedPassword("xxxXXX");
+        user.setEmailAddress("dd@jdd.com");
+        user.setVerified(Boolean.FALSE);
+        user.setLastAccessTime(new Date());
+        user.setRegistrationDate(new GregorianCalendar());
 
         session.save(user);
         HibernateUtil.commitTransaction();
