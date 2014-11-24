@@ -4,16 +4,43 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
+
+//import javax.persistence.criteria.Order;
 
 public class CriteriaQuery {
 
     public static void main(String[] args) {
-//       findVerifiedUsers();
+//        findVerifiedUsers();
 //        findUniqueUser();
 //        findUsingLike();
-        findFirstFive();
+//        findFirstFive();
+//        findAllOrderedByLoginName();
+        findByRetrictionGreaterThan();
+    }
+
+    private static void findByRetrictionGreaterThan() {
+        Session session = HibernateUtil.beginTransaction();
+        Criteria criteria = session.createCriteria(User.class);
+        criteria.add(Restrictions.gt("id", 5L));
+        List users = criteria.list();
+        for (Object user : users) {
+            System.out.println(user.toString());
+        }
+    }
+
+    private static void findAllOrderedByLoginName() {
+        Session session = HibernateUtil.beginTransaction();
+        Criteria criteria = session.createCriteria(User.class);
+        Order order = Order.asc("loginName");
+        criteria.addOrder(order);
+        List users = criteria.list();
+        for (Object user : users) {
+            System.out.println(user.toString());
+        }
     }
 
     private static void findFirstFive() {
