@@ -89,4 +89,8 @@ public class User {
     public void setRegistrationDate(Calendar registrationDate) {
         this.registrationDate = registrationDate;
     }
+
+    public String toString() {
+        return getId() + " : " + getLoginName() + " : " + getPassword() + " : " + getEmailAddress();
+    }
 }
