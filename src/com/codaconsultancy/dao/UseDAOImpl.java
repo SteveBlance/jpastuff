@@ -1,6 +1,10 @@
 package com.codaconsultancy.dao;
 
 import com.codaconsultancy.model.User;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -28,7 +32,7 @@ public class UseDAOImpl extends BaseDAO implements UserDAO {
             if (user.getId() == null || user.getId() == 0) {
                 successFlag = false;
             } else {
-                save(user);
+                super.save(user);
             }
         } catch (Throwable th) {
             successFlag = false;
@@ -38,21 +42,40 @@ public class UseDAOImpl extends BaseDAO implements UserDAO {
 
     @Override
     public boolean delete(User user) {
-        return false;
+        boolean successFlag = true;
+        try {
+            user.setPassword("");
+            super.delete(user);
+        } catch (Throwable th) {
+            successFlag = false;
+        }
+        return successFlag;
     }
 
     @Override
     public User findByPrimaryKey(Long primaryKey) {
-        return null;
+        User user = (User) super.findByPrimaryKey(User.class, primaryKey);
+        return user;
     }
 
     @Override
-    public User findByExample(User user, boolean fuzzy) {
-        return null;
+    public List findByExample(User user, boolean fuzzy) {
+        List users;
+        Criteria criteria = getSession().createCriteria(User.class);
+        Example example = Example.create(user);
+        if (fuzzy) {
+            example.enableLike(MatchMode.ANYWHERE);
+            example.ignoreCase();
+            example.excludeZeroes();
+        }
+        criteria.add(example);
+        users = criteria.list();
+        return users;
     }
 
     @Override
-    public List<User> findAll() {
-        return null;
+    public List findAll() {
+        Query query = getSession().createQuery("from User");
+        return query.list();
     }
 }

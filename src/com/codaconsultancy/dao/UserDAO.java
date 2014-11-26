@@ -14,7 +14,7 @@ public interface UserDAO {
 
     public User findByPrimaryKey(Long primaryKey);
 
-    public User findByExample(User user, boolean fuzzy);
+    public List findByExample(User user, boolean fuzzy);
 
-    public List<User> findAll();
+    public List findAll();
 }
