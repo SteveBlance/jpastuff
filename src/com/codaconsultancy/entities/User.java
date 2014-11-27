@@ -1,4 +1,4 @@
-package com.codaconsultancy.model;
+package com.codaconsultancy.entities;
 
 import javax.persistence.*;
 import java.util.Calendar;

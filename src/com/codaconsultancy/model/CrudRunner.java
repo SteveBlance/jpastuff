@@ -1,5 +1,6 @@
 package com.codaconsultancy.model;
 
+import com.codaconsultancy.entities.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 

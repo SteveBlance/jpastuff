@@ -1,6 +1,6 @@
 package com.codaconsultancy.dao;
 
-import com.codaconsultancy.model.User;
+import com.codaconsultancy.entities.User;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Example;

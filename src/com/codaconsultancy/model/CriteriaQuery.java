@@ -1,5 +1,6 @@
 package com.codaconsultancy.model;
 
+import com.codaconsultancy.entities.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
