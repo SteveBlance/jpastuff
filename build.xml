@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<project name="jpastuff" basedir="." default="build">
+    <property name="src.dir" value="src"/>
+    <property name="web.dir" value="war"/>
+    <property name="build.dir" value="${web.dir}/WEB-INF"/>
+    <property name="war-file-name" value="jpastuff.war"/>
+
+    <path id="master-classpath">
+        <fileset dir="${web.dir}/WEB-INF/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${build.dir}"/>
+    </path>
+
+    <target name="war" depends="build">
+        <mkdir dir="${build.dir}"/>
+        <delete file="${build.dir}/${war-file-name}"/>
+        <war warfile="out/${war-file-name}">
+            <classes dir="${build.dir}/classes"/>
+            <fileset dir="${web.dir}"/>
+        </war>
+    </target>
+
+    <target name="build" depends="copy-libs" description="Compile source tree java files">
+        <mkdir dir="${build.dir}"/>
+        <javac destdir="${build.dir}/classes" source="1.7" target="1.7">
+            <src path="${src.dir}"/>
+            <classpath refid="master-classpath"/>
+        </javac>
+        <copy todir="${build.dir}/classes">
+            <fileset dir="${src.dir}">
+                <include name="**/hibernate.cfg.xml"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="copy-libs" description="copy jars to lib folder">
+        <copydir includes="*.jar" src="lib" dest="${build.dir}/lib"/>
+    </target>
+
+    <target name="clean" description="Clean output directories">
+        <delete>
+            <fileset dir="${build.dir}">
+                <include name="**/*.class"/>
+                <include name="**/*.jar"/>
+                <include name="**/**/hibernate.cfg.xml"/>
+            </fileset>
+        </delete>
+    </target>
+</project>

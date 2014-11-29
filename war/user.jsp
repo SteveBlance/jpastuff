@@ -74,6 +74,7 @@
         | <c:out value="${user.id}"/>
         | <c:out value="${user.loginName}"/>
         | <c:out value="${user.emailAddress}"/>
+        <br/>
 
     </c:forEach>
 </form>

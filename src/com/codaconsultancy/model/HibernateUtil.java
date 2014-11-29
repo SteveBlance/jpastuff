@@ -17,10 +17,10 @@ public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
 
-    public static void main(String[] args) {
-        HibernateUtil.recreateDatabase();
-        setupUsers();
-    }
+//    public static void main(String[] args) {
+//        HibernateUtil.recreateDatabase();
+//        setupUsers();
+//    }
 
     private static void setupUsers() {
         saveUser("mj", "abc123", "mj@mcnz.com", false, new Date(), new GregorianCalendar(2006, 1, 1));
@@ -61,12 +61,14 @@ public class HibernateUtil {
     }
 
     public static Session beginTransaction() {
+        System.out.println("calling begin transaction");
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         return session;
     }
 
     public static void commitTransaction() {
+        System.out.println("calling commit transaction");
         Session session = HibernateUtil.getSession();
         session.getTransaction().commit();
     }
