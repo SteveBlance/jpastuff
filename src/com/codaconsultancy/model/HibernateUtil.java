@@ -1,5 +1,6 @@
 package com.codaconsultancy.model;
 
+import com.codaconsultancy.entities.Snafu;
 import com.codaconsultancy.entities.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,7 +21,16 @@ public class HibernateUtil {
 //    public static void main(String[] args) {
 //        HibernateUtil.recreateDatabase();
 //        setupUsers();
+//        setupSnafu();
 //    }
+
+    private static void setupSnafu() {
+        HibernateUtil.beginTransaction();
+        Snafu snafu = new Snafu();
+        snafu.setSituation("normal");
+        getSession().save(snafu);
+        HibernateUtil.commitTransaction();
+    }
 
     private static void setupUsers() {
         saveUser("mj", "abc123", "mj@mcnz.com", false, new Date(), new GregorianCalendar(2006, 1, 1));
@@ -33,7 +43,6 @@ public class HibernateUtil {
         saveUser("stephen", "low", "stanley@pulpjava.com", false, newDate("25/02/2008"), new GregorianCalendar(2008, 2, 15));
         saveUser("che", "password", "ernesto@pulpjava.com", true, newDate("26/07/1999"), new GregorianCalendar(1999, 3, 9));
         saveUser("remy", "password", "rabbit@scja.com", false, new Date(), new GregorianCalendar(2007, 5, 21));
-
     }
 
     private static Date newDate(String dateString) {
@@ -101,6 +110,7 @@ public class HibernateUtil {
         Configuration configuration = new Configuration();
 
         configuration.addAnnotatedClass(User.class);
+        configuration.addAnnotatedClass(Snafu.class);
 
         configuration.configure();
         return configuration;
