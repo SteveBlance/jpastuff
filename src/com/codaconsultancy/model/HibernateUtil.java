@@ -19,12 +19,12 @@ public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
 
-    public static void main(String[] args) {
-        HibernateUtil.recreateDatabase();
-        setupUsers();
-        setupSnafu();
-        setupFooBar();
-    }
+//    public static void main(String[] args) {
+//        HibernateUtil.recreateDatabase();
+//        setupUsers();
+//        setupSnafu();
+//        setupFooBar();
+//    }
 
     private static void setupFooBar() {
         HibernateUtil.beginTransaction();
