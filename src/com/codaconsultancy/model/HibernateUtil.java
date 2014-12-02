@@ -1,5 +1,6 @@
 package com.codaconsultancy.model;
 
+import com.codaconsultancy.entities.FooBar;
 import com.codaconsultancy.entities.Snafu;
 import com.codaconsultancy.entities.User;
 import org.hibernate.Session;
@@ -18,11 +19,21 @@ public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
 
-//    public static void main(String[] args) {
-//        HibernateUtil.recreateDatabase();
-//        setupUsers();
-//        setupSnafu();
-//    }
+    public static void main(String[] args) {
+        HibernateUtil.recreateDatabase();
+        setupUsers();
+        setupSnafu();
+        setupFooBar();
+    }
+
+    private static void setupFooBar() {
+        HibernateUtil.beginTransaction();
+        FooBar fooBar = new FooBar();
+        fooBar.setBarCode("90210");
+        fooBar.setFooName("ManChu");
+        getSession().save(fooBar);
+        HibernateUtil.commitTransaction();
+    }
 
     private static void setupSnafu() {
         HibernateUtil.beginTransaction();
@@ -111,6 +122,7 @@ public class HibernateUtil {
 
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Snafu.class);
+        configuration.addAnnotatedClass(FooBar.class);
 
         configuration.configure();
         return configuration;
