@@ -1,6 +1,7 @@
 package com.codaconsultancy.model;
 
 import com.codaconsultancy.entities.*;
+import com.codaconsultancy.entities.keys.CompoundKey;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -23,6 +24,19 @@ public class HibernateUtil {
         setupSnafu();
         setupFooBar();
         setupThing();
+        setupInterest();
+    }
+
+    private static void setupInterest() {
+        Interest interest = new Interest();
+        interest.setRate(18.5);
+        Long wayne = 6L;
+        Long bankOfScotland = 1665L;
+        CompoundKey key = new CompoundKey(wayne, bankOfScotland);
+        interest.setId(key);
+        HibernateUtil.beginTransaction();
+        getSession().save(interest);
+        HibernateUtil.commitTransaction();
     }
 
     private static void setupThing() {
@@ -135,6 +149,7 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(Snafu.class);
         configuration.addAnnotatedClass(FooBar.class);
         configuration.addAnnotatedClass(Thing.class);
+        configuration.addAnnotatedClass(Interest.class);
 
         configuration.configure();
         return configuration;
