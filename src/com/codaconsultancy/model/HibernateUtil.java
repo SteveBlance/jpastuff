@@ -26,6 +26,19 @@ public class HibernateUtil {
         setupThing();
         setupInterest();
         setupFracture();
+        setupPrison();
+    }
+
+    private static void setupPrison() {
+        Prison prison = new Prison();
+        prison.setCity("Dunfermline");
+        long userId = 18L;
+        long bankId = 85L;
+        CompoundKey key = new CompoundKey(userId, bankId);
+        prison.setKey(key);
+        HibernateUtil.beginTransaction();
+        getSession().save(prison);
+        HibernateUtil.commitTransaction();
     }
 
     private static void setupFracture() {
@@ -162,6 +175,7 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(Thing.class);
         configuration.addAnnotatedClass(Interest.class);
         configuration.addAnnotatedClass(Fracture.class);
+        configuration.addAnnotatedClass(Prison.class);
 
         configuration.configure();
         return configuration;
