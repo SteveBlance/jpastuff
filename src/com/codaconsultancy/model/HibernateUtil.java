@@ -25,6 +25,17 @@ public class HibernateUtil {
         setupFooBar();
         setupThing();
         setupInterest();
+        setupFracture();
+    }
+
+    private static void setupFracture() {
+        Fracture fracture = new Fracture();
+        fracture.setBankId(8L);
+        fracture.setUserId(21L);
+        fracture.setBone("arm");
+        HibernateUtil.beginTransaction();
+        getSession().save(fracture);
+        HibernateUtil.commitTransaction();
     }
 
     private static void setupInterest() {
@@ -150,6 +161,7 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(FooBar.class);
         configuration.addAnnotatedClass(Thing.class);
         configuration.addAnnotatedClass(Interest.class);
+        configuration.addAnnotatedClass(Fracture.class);
 
         configuration.configure();
         return configuration;
