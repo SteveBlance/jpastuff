@@ -28,6 +28,20 @@ public class HibernateUtil {
         setupFracture();
         setupPrison();
         setupAncestor();
+        setupExam();
+    }
+
+    private static void setupExam() {
+        Exam exam = new Exam();
+        exam.setShortName("OCPJP");
+        ExamDetail detail = new ExamDetail();
+        detail.setFullName("Oracle Certified Professional - Java Programmer");
+        detail.setNumberOfQuestions(80);
+        detail.setPassingPercentage(65);
+        exam.setDetail(detail);
+        HibernateUtil.beginTransaction();
+        getSession().save(exam);
+        HibernateUtil.commitTransaction();
     }
 
     private static void setupAncestor() {
@@ -200,6 +214,8 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(Ancestor.class);
         configuration.addAnnotatedClass(Parent.class);
         configuration.addAnnotatedClass(Child.class);
+        configuration.addAnnotatedClass(Exam.class);
+        configuration.addAnnotatedClass(ExamDetail.class);
 
         configuration.configure();
         return configuration;
