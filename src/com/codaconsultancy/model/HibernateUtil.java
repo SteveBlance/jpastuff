@@ -27,6 +27,27 @@ public class HibernateUtil {
         setupInterest();
         setupFracture();
         setupPrison();
+        setupAncestor();
+    }
+
+    private static void setupAncestor() {
+        Ancestor ancestor = new Ancestor();
+        ancestor.setNationality("Scottish");
+
+        Parent parent = new Parent();
+        parent.setNationality("Irish");
+        parent.setLastName("McKenzie");
+
+        Child child = new Child();
+        child.setNationality("Welsh");
+        child.setFirstName("Ivor");
+        child.setLastName("Jones");
+
+        HibernateUtil.beginTransaction();
+        getSession().save(ancestor);
+        getSession().save(parent);
+        getSession().save(child);
+        HibernateUtil.commitTransaction();
     }
 
     private static void setupPrison() {
@@ -176,6 +197,9 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(Interest.class);
         configuration.addAnnotatedClass(Fracture.class);
         configuration.addAnnotatedClass(Prison.class);
+        configuration.addAnnotatedClass(Ancestor.class);
+        configuration.addAnnotatedClass(Parent.class);
+        configuration.addAnnotatedClass(Child.class);
 
         configuration.configure();
         return configuration;
