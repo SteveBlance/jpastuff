@@ -30,6 +30,33 @@ public class HibernateUtil {
         setupAncestor();
         setupExam();
         setupTeam();
+        enrollStudents();
+    }
+
+    private static void enrollStudents() {
+        Student student1 = new Student();
+        Student student2 = new Student();
+        Student student3 = new Student();
+        student1.setName("Bob");
+        student2.setName("Zac");
+        student3.setName("Liz");
+        Course maths101 = new Course();
+        maths101.setCourseCode("M101");
+        Course french201 = new Course();
+        french201.setCourseCode("F201");
+        maths101.enroleStudent(student1);
+        maths101.enroleStudent(student2);
+        french201.enroleStudent(student1);
+        french201.enroleStudent(student3);
+
+        HibernateUtil.beginTransaction();
+        getSession().save(student1);
+        getSession().save(student2);
+        getSession().save(student3);
+        getSession().save(maths101);
+        getSession().save(french201);
+
+        HibernateUtil.commitTransaction();
     }
 
     private static void setupTeam() {
@@ -237,6 +264,9 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(ExamDetail.class);
         configuration.addAnnotatedClass(Team.class);
         configuration.addAnnotatedClass(Player.class);
+        configuration.addAnnotatedClass(Student.class);
+        configuration.addAnnotatedClass(Course.class);
+
 
         configuration.configure();
         return configuration;
