@@ -29,6 +29,25 @@ public class HibernateUtil {
         setupPrison();
         setupAncestor();
         setupExam();
+        setupTeam();
+    }
+
+    private static void setupTeam() {
+        Team team = new Team();
+        team.setName("The Pars");
+        Player player1 = new Player();
+        Player player2 = new Player();
+        HibernateUtil.beginTransaction();
+        getSession().save(team);
+        getSession().save(player1);
+        getSession().save(player2);
+
+        player1.setNickname("Kozzie");
+        player1.setTeam(team);
+        player2.setNickname("Gozie");
+        player2.setTeam(team);
+
+        HibernateUtil.commitTransaction();
     }
 
     private static void setupExam() {
@@ -216,6 +235,8 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(Child.class);
         configuration.addAnnotatedClass(Exam.class);
         configuration.addAnnotatedClass(ExamDetail.class);
+        configuration.addAnnotatedClass(Team.class);
+        configuration.addAnnotatedClass(Player.class);
 
         configuration.configure();
         return configuration;
