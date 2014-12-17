@@ -266,6 +266,10 @@ public class HibernateUtil {
         configuration.addAnnotatedClass(Player.class);
         configuration.addAnnotatedClass(Student.class);
         configuration.addAnnotatedClass(Course.class);
+        configuration.addAnnotatedClass(Client.class);
+        configuration.addAnnotatedClass(ClientDetail.class);
+        configuration.addAnnotatedClass(Skill.class);
+        configuration.addAnnotatedClass(Address.class);
 
 
         configuration.configure();
