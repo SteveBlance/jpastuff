@@ -1,11 +1,11 @@
 <%@ page
-        import="com.codaconsultancy.dao.UseDAOImpl,com.codaconsultancy.dao.UserDAO,com.codaconsultancy.model.HibernateUtil"
+        import="com.codaconsultancy.dao.UserDAO,com.codaconsultancy.dao.UserDAOImpl,com.codaconsultancy.model.HibernateUtil"
         contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="user" class="com.codaconsultancy.entities.User" scope="request"/>
 <jsp:setProperty name="user" property="*"/>
 <%
     HibernateUtil.beginTransaction();
-    UserDAO userDAO = new UseDAOImpl();
+    UserDAO userDAO = new UserDAOImpl();
     java.util.List users = null;
     String command = request.getParameter("command");
     if (command != null) {

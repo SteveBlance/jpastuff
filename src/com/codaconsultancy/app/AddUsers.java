@@ -1,7 +1,7 @@
 package com.codaconsultancy.app;
 
-import com.codaconsultancy.dao.UseDAOImpl;
 import com.codaconsultancy.dao.UserDAO;
+import com.codaconsultancy.dao.UserDAOImpl;
 import com.codaconsultancy.entities.User;
 import com.codaconsultancy.model.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -12,7 +12,7 @@ public class AddUsers {
 
     public static void main(String[] args) {
         int keepAdding = 1;
-        UserDAO userDAO = new UseDAOImpl();
+        UserDAO userDAO = new UserDAOImpl();
         while (keepAdding == 1) {
             Scanner keyboard = new Scanner(System.in);
             User user = new User();

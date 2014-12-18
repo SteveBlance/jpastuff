@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class UseDAOImpl extends BaseDAO implements UserDAO {
+public class UserDAOImpl extends BaseDAO implements UserDAO {
 
     @Override
     public User create(User user) {
