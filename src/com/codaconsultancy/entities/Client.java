@@ -1,6 +1,7 @@
 package com.codaconsultancy.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -8,8 +9,8 @@ import java.util.List;
 public class Client {
 
     private Long id;
-    private List<Address> addresses;
-    private List<Skill> skills;
+    private List<Address> addresses = new ArrayList<Address>();
+    private List<Skill> skills = new ArrayList<Skill>();
     private ClientDetail clientDetail;
     private String username;
     private String password;

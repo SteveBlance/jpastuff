@@ -18,20 +18,20 @@ public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
 
-    public static void main(String[] args) {
-        HibernateUtil.recreateDatabase();
-        setupUsers();
-        setupSnafu();
-        setupFooBar();
-        setupThing();
-        setupInterest();
-        setupFracture();
-        setupPrison();
-        setupAncestor();
-        setupExam();
-        setupTeam();
-        enrollStudents();
-    }
+//    public static void main(String[] args) {
+//        HibernateUtil.recreateDatabase();
+//        setupUsers();
+//        setupSnafu();
+//        setupFooBar();
+//        setupThing();
+//        setupInterest();
+//        setupFracture();
+//        setupPrison();
+//        setupAncestor();
+//        setupExam();
+//        setupTeam();
+//        enrollStudents();
+//    }
 
     private static void enrollStudents() {
         Student student1 = new Student();

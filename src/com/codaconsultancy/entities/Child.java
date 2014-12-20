@@ -1,10 +1,8 @@
 package com.codaconsultancy.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "child")
 public class Child extends Parent {
 
     private String firstName;
